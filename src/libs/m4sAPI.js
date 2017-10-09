@@ -4,7 +4,7 @@ import qs from 'qs'
 class M4sAPI {
   constructor () {
     this.$ajax = axios.create({
-      baseURL: 'http://api.usmusic.cn/cloud',
+      baseURL: process.env.REST_BASE_URL + '/cloud',
       headers: {}
     })
     this.$ajax.interceptors.response.use(

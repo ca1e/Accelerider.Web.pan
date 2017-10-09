@@ -5,7 +5,7 @@ import MD5 from './cryptos'
 class RestAPI {
   constructor () {
     this.$ajax = axios.create({
-      baseURL: 'http://api.usmusic.cn/',
+      baseURL: process.env.REST_BASE_URL,
       headers: {}
     })
     this.$ajax.interceptors.response.use(

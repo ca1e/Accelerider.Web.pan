@@ -4,7 +4,7 @@ import qs from 'qs'
 class SquareAPI {
   constructor () {
     this.$ajax = axios.create({
-      baseURL: 'http://api.usmusic.cn/square',
+      baseURL: process.env.REST_BASE_URL + '/square',
       headers: {}
     })
     this.$ajax.interceptors.response.use(
