@@ -2,17 +2,17 @@
 .bddisk
   el-row(type="flex")
     el-col(v-bind:span='2', v-if='utils.pathmanager().getPath() != "/"')
-      el-button(type='text',@click='backFileList',icon='arrow-left') BACK
+      el-button(type='text',@click='backFileList',icon='el-icon-arrow-left') BACK
     el-col.breadcrumb
       el-breadcrumb(separator=">",v-bind:replace='true')
         el-breadcrumb-item(v-for='p in utils.pathmanager().pathSegmtt()',v-bind:to="{query:{path:p.path}}",key = 'p')
           | {{p.name}}
   el-row(type="flex")
     el-col
-      el-button(@click='createFolder', icon='plus') 新建文件夹
+      el-button(@click='createFolder', icon='el-icon-plus') 新建文件夹
       el-button-group(v-if='selectedFiles.length>0')
         el-button(@click='downloadFiles(selectedFiles)') 下载
-        el-button(@click='deleteFiles', icon='delete', v-bind:disabled='selectedFiles.length>6') 删除
+        el-button(@click='deleteFiles', icon='el-icon-delete') 删除
     el-col(v-bind:span='4')
       span Total: {{filelist.length}}
       el-button(@click='goFileList')
@@ -48,7 +48,7 @@
             | {{utils.transeTime(scope.row.server_mtime)}}
   .dialog
     down-dialog(v-model='dialogDL', v-bind:downlinks='downlinks')
-    el-dialog(v-model='dialogProP',title='文件属性')
+    el-dialog(v-bind:visible.sync='dialogProP',title='文件属性')
       p 文件名： {{curFile.filename}}
       p 文件大小： {{utils.transeSize(curFile)}}
       p(v-if='curFile.isdir==1') 是否有子目录： {{curFile.dir_empty==0}}
@@ -65,7 +65,6 @@ export default {
   data () {
     return {
       dialogProP: false,
-      selectedFiles: [],
       curFile: {}
     }
   },
@@ -161,29 +160,8 @@ export default {
           this.goFileList()
         })
     },
-    deleteFiles: function () {
-      this.$confirm(`确认删除所有选中的文件(夹)吗?`, '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.$store.commit('viewloading', true)
-        /* eslint-disable no-return-await */
-        Promise.all(this.selectedFiles.map(
-          o => this.$restAPI.deletefile(this.token,this.uk,o.path))
-          .map(async o=>await o.then(r=>r.errno))
-        ).then(a=>a.reduce((a,b)=>a + b))
-          .then(r=>{ if (r !== 0) throw new Error('err') })
-          .then(data => {
-            this.$store.commit('viewloading', false)
-            this.$message.success('全部删除成功!')
-            this.goFileList()
-          })
-          .catch((e)=>{
-            this.$store.commit('viewloading', false)
-            this.$message.error('删除失败。')
-          })
-      }).catch(() => {})
+    deleteFilesapi: function (o) {
+      return this.$restAPI.deletefile(this.token,this.uk,o.path)
     },
     deleteFileapi: function (filepath) {
       this.$restAPI.deletefile(this.token,this.uk,filepath)

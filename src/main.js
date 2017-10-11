@@ -13,7 +13,7 @@ import Aria2API from './libs/aria2c'
 import Utils from './libs/utils'
 
 import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-default/index.css'
+import 'element-ui/lib/theme-chalk/index.css'
 
 Vue.config.productionTip = false
 Vue.prototype.$restAPI = new RestAPI()
@@ -29,6 +29,5 @@ new Vue({
   store,
   el: '#app',
   router,
-  template: '<App/>',
-  components: { App }
+  render: h => h(App)
 })

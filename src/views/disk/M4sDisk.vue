@@ -4,7 +4,7 @@
     el-tab-pane(label='网盘')
       el-row(type="flex")
         el-col(v-bind:span='2', v-if='utils.pathmanager().getPath() != "/"')
-          el-button(type='text',@click='backFileList',icon='arrow-left') BACK
+          el-button(type='text',@click='backFileList',icon='el-icon-arrow-left') BACK
         el-col.breadcrumb
           el-breadcrumb(separator=">",v-bind:replace='true')
             el-breadcrumb-item(v-for='p in utils.pathmanager().pathSegmtt()',v-bind:to="{query:{path:p.path}}",key = 'p')
@@ -13,17 +13,17 @@
         //- el-upload(ref="upload", v-bind:auto-upload="false", v-bind:on-change='upfilechange', v-bind:action='uploadUrl', v-bind:show-file-list='false', v-bind:before-upload='beforeupload')
         //-   el-button(type="primary") 上传
         el-col
-          el-button(@click='createFolder', icon='plus') 新建文件夹
+          el-button(@click='createFolder', icon='el-icon-plus') 新建文件夹
           el-button(@click='pasteHere', icon='el-icon-paste', v-if='clipboard!=null') 粘贴
-          el-button-group(v-if='false')
-            el-button(icon='delete') 删除
+          el-button-group(v-if='selectedFiles.length>0')
+            el-button(@click='deleteFiles', icon='el-icon-delete') 删除
         el-col(v-bind:span='4')
           span Total: {{m4sfilelist.length}}
           el-button(@click='goFileList')
             i(class='fa fa-refresh', aria-hidden='true', v-bind:class='isLoading ? "fa-spin" : "fa"')
       el-row
         el-col(v-loading='isLoading')
-          el-table.filelist(v-bind:data='m4sfilelist', empty-text='文件夹是空的哟')
+          el-table.filelist(v-bind:data='m4sfilelist', empty-text='文件夹是空的哟', @select='(s,r)=>{selectedFiles=s}', @select-all='(s)=>{selectedFiles=s}')
             el-table-column(type='selection')
             el-table-column(label='文件名',show-overflow-tooltip,min-width='200')
               template(scope="scope")
@@ -52,7 +52,7 @@
     el-tab-pane(label='离线')
       el-row(type="flex")
         el-col
-          el-button(@click='createOffline', icon='plus') 新建离线
+          el-button(@click='createOffline', icon='el-icon-plus') 新建离线
           span &nbsp;&nbsp;&nbsp;&nbsp;配额: {{offline.quotacount}}， 过期时间: {{offline.vipTime}}
         el-col
           el-button(@click='offlinetasks')
@@ -99,6 +99,7 @@ export default {
   methods: {
     goFileList: function () {
       const path = this.utils.pathmanager().getPath()
+      this.selectedFiles = []
       this.token = this.getToken()
       this.$store.commit('viewloading', true)
       this.$m4sAPI.filelist(this.token,path)
@@ -159,6 +160,9 @@ export default {
       this.$m4sAPI.copyFile(this.token,this.clipboard,topath)
         .then(a=>{ this.$message.success('粘贴成功!'); this.clipboard = null; this.goFileList() })
         .catch(e=>this.$message.error(e.message))
+    },
+    deleteFilesapi: function (o) {
+      return this.$m4sAPI.deletefile(this.token,o.path)
     },
     deleteFileapi: function (filepath) {
       this.$m4sAPI.deletefile(this.token, filepath)

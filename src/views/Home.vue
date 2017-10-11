@@ -1,21 +1,22 @@
 <template lang="pug">
-el-row.container
-  el-col.header(v-bind:span='24')
-    el-col.logo(v-bind:span='10')
-      //- img(src='static/logo.png')
-      span 坐骑WEB
-    el-col.userinfo(v-bind:span='4')
-      el-button(v-if='!isbind',@click='binding') 尚未绑定百度账号
-      el-dropdown(trigger="hover", v-if='isbind')
-        span.el-dropdown-link.userinfo-inner
-          img(v-bind:src='userInfo.avatar_url')
-          | {{userInfo.Name}}
-        el-dropdown-menu(slot="dropdown")
-          el-dropdown-item 用量:{{utils.percentSize(userInfo.used,userInfo.total)}}%
-          el-dropdown-item(@click.native='changeUser') 切换帐号
-          el-dropdown-item(divided, @click.native='logout') 退出登录
-  el-col.main
-    aside
+el-container(style="height: 600px")
+  el-header.header
+    el-row
+      el-col.logo(v-bind:span='10')
+        //- img(src='static/logo.png')
+        span 坐骑WEB
+      el-col.userinfo(v-bind:span='4')
+        el-button(v-if='!isbind',@click='binding') 尚未绑定百度账号
+        el-dropdown(trigger="hover", v-if='isbind')
+          span.el-dropdown-link.userinfo-inner
+            img(v-bind:src='userInfo.avatar_url')
+            | {{userInfo.Name}}
+          el-dropdown-menu(slot="dropdown")
+            el-dropdown-item 用量:{{utils.percentSize(userInfo.used,userInfo.total)}}%
+            el-dropdown-item(@click.native='changeUser') 切换帐号
+            el-dropdown-item(divided, @click.native='logout') 退出登录
+  el-container.main-container
+    el-aside(width='200px')
       el-menu(v-bind:default-active="$route.path", router)
         template(v-for="(item,index) in $router.options.routes[2].children")
           el-submenu(v-bind:index="index+''", v-if="item.children&&item.children.length>0")
@@ -30,14 +31,13 @@ el-row.container
             | {{item.name}}
       el-row
         el-progress(type="circle", v-bind:percentage="utils.percentSize(userInfo.used,userInfo.total)")
-    section.content-container
-      .content-wrapper(type='flex', v-bind:span='24')
-        el-card
-          transition
-            router-view
-  el-dialog(v-model='bindDlg')
+    el-main.main-content
+      el-card
+        transition
+          router-view
+  el-dialog(v-bind:visible.sync='bindDlg')
     bind-form
-  el-dialog(v-model='ukDlg')
+  el-dialog(v-bind:visible.sync='ukDlg')
     user-info
     el-button(type='text',@click='binding') 新增绑定
 </template>
@@ -120,59 +120,41 @@ export default {
 <style scoped lang="scss">
 $color-primary: #20a0ff;//#18c79c
 
-.container{
-  position: absolute;
-  top: 0px;
-  bottom: 0px;
-  width: 100%;
-  .header{
-    height: 60px;
-    line-height: 60px;
-    background: $color-primary;
-    color:#fff;
-    .userinfo {
-        text-align: right;
-        padding-right: 3%;
-        float: right;
-        .userinfo-inner {
-            cursor: pointer;
-            color: #fff;
-            img {
-                width: 40px;
-                height: 40px;
-                border-radius: 20px;
-                margin: 10px 0px 10px 10px;
-                float: right;
-            }
-        }
-    }
-    .logo{
-      height:60px;
+.main-container {
+  overflow-y: hidden;
+}
+.header{
+  height: 60px;
+  line-height: 60px;
+  background: $color-primary;
+  color:#fff;
+}
+.logo{
+  height:60px;
+  color: #fff;
+  font-size: 22px;
+  padding-left:20px;
+  padding-right:20px;
+  width:25%;
+}
+.userinfo {
+  text-align: right;
+  padding-right: 3%;
+  float: right;
+  .userinfo-inner {
+      cursor: pointer;
       color: #fff;
-      font-size: 22px;
-      padding-left:20px;
-      padding-right:20px;
-      width:25%;
-    }
-  }
-  .main{
-    display: flex;
-    position: absolute;
-    top: 60px;
-    bottom: 0px;
-    aside {
-        width: 15%;
-        min-width: 180px;
-        overflow: hidden;
-    }
-    .content-container{
-      flex:1;
-      overflow-y: scroll;
-      .content-wrapper {
-        background-color: #fff;
-        box-sizing: border-box;
+      img {
+          width: 40px;
+          height: 40px;
+          border-radius: 20px;
+          margin: 10px 0px 10px 10px;
+          float: right;
       }
-    }
   }
+}
+
+.main-content {
+  flex:1;
 }
 </style>

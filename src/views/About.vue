@@ -1,5 +1,5 @@
 <template  lang="pug">
-el-card
+.about
     div(slot="header")
       h3 关于坐骑网页版
     div 1.本平台基于百度云，部分文件下载可能限速

@@ -3,11 +3,11 @@
   el-row(type="flex", v-bind:gutter='50')
     el-col
       el-button-group
-        el-button(type="info",size="small", icon="arrow-left", @click='prePage()') 上一页
-        el-button(type="info",size="small", @click='nextPage()') 下一页
-          i(class='el-icon-arrow-right el-icon--right')
+        el-button(type="primary",size="small", icon="el-icon-arrow-left", @click='prePage()') 上一页
+        el-button(type="primary",size="small", @click='nextPage()') 下一页
+          i(class='el-icon-arrow-right el-icon-right')
     el-col
-      el-input(v-model='searchs',size="small", icon="search", v-bind:on-icon-click='searchplaza',@keyup.enter.native='searchplaza')
+      el-input(v-model='searchs',size="small", prefix-icon="el-icon-search", @keyup.enter.native='searchplaza')
     el-col
       span 当前页码:
       el-input-number(v-model='page',size="small", v-bind:min="1")
@@ -28,11 +28,11 @@
   el-row(type="flex", v-bind:gutter='50')
     el-col
       el-button-group
-        el-button(type="info",size="small", icon="arrow-left", @click='prePage()') 上一页
-        el-button(type="info",size="small", @click='nextPage()') 下一页
-          i(class='el-icon-arrow-right el-icon--right')
+        el-button(type="primary",size="small", icon="el-icon-arrow-left", @click='prePage()') 上一页
+        el-button(type="primary",size="small", @click='nextPage()') 下一页
+          i(class='el-icon-arrow-right el-icon-right')
     el-col
-      el-input(v-model='searchs',size="small", icon="search", v-bind:on-icon-click='searchplaza',@keyup.enter.native='searchplaza')
+      el-input(v-model='searchs',size="small", prefix-icon="el-icon-search", @keyup.enter.native='searchplaza')
     el-col
       span 当前页码:
       el-input-number(v-model='page',size="small", v-bind:min="1")

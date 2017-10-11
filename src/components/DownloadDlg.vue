@@ -1,6 +1,6 @@
 <template lang="pug">
 .dialog(v-bind:value='value')
-  el-dialog(v-model='showDlg',title='下载链接')
+  el-dialog(v-bind:visible.sync='showDlg',title='下载链接')
     div(v-for='item in downlinks',key = 'item')
       p {{item.name}}
       ol

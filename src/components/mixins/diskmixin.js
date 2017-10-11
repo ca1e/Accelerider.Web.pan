@@ -6,7 +6,8 @@ export const diskmixin = {
     return {
       token: '',
       dialogDL: false,
-      downlinks: []
+      downlinks: [],
+      selectedFiles: []
     }
   },
   computed: {
@@ -35,6 +36,31 @@ export const diskmixin = {
         this.createfolderapi(value)
       }).catch(_ => {})
     },
+    deleteFiles: function () {
+      this.$confirm(`确认删除所有选中的文件(夹)吗?`, '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$store.commit('viewloading', true)
+        /* eslint-disable no-return-await */
+        Promise.all(this.selectedFiles.map(
+          o => this.deleteFilesapi(o))
+          .map(async o=>await o.then(r=>r.errno))
+        ).then(a=>a.reduce((a,b)=>a + b))
+          .then(r=>{ if (r !== 0) throw new Error('err') })
+          .then(data => {
+            this.$store.commit('viewloading', false)
+            this.$message.success('全部删除成功!')
+            this.goFileList()
+          })
+          .catch((e)=>{
+            this.$store.commit('viewloading', false)
+            this.$message.error('删除失败。')
+          })
+      }).catch(() => {})
+    },
+    deleteFilesapi: function () {},
     createfolderapi: function () {},
     deleteFile: function (file) {
       this.$confirm(`确认删除文件(夹)'${file.filename}'吗?`, '提示', {
