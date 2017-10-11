@@ -1,4 +1,4 @@
-# Accelerider.Web.pan v1.0.2
+# Accelerider.Web.pan v2.0.2
 
 A SPA for zuoqi cloud
 
@@ -16,7 +16,7 @@ now RELEASE version number management will follow [Semantic Versioning 2.0.0](ht
 # install dependencies
 npm install
 
-# serve with hot reload at localhost:8080
+# serve with hot reload at localhost:3000
 npm run dev
 
 # eslint check
