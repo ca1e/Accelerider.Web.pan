@@ -1,5 +1,5 @@
 <template lang="pug">
-el-container(style="height: 600px")
+el-container
   el-header.header
     el-row
       el-col.logo(v-bind:span='10')
@@ -15,7 +15,7 @@ el-container(style="height: 600px")
             el-dropdown-item 用量:{{utils.percentSize(userInfo.used,userInfo.total)}}%
             el-dropdown-item(@click.native='changeUser') 切换帐号
             el-dropdown-item(divided, @click.native='logout') 退出登录
-  el-container.main-container
+  el-container.main-container(v-bind:style="clientHeight")
     el-aside(width='200px')
       el-menu(v-bind:default-active="$route.path", router)
         template(v-for="(item,index) in $router.options.routes[2].children")
@@ -31,7 +31,7 @@ el-container(style="height: 600px")
             | {{item.name}}
       el-row
         el-progress(type="circle", v-bind:percentage="utils.percentSize(userInfo.used,userInfo.total)")
-    el-main.main-content
+    el-main
       el-card
         transition
           router-view
@@ -50,6 +50,7 @@ export default {
   mixins: [loginmixin],
   data () {
     return {
+      clientHeight: 'height: 600px',
       isbind: false,
       bindDlg: false,
       ukDlg: false
@@ -112,6 +113,11 @@ export default {
     }
   },
   mounted () {
+    this.clientHeight = `height: ${document.body.scrollHeight - 65}px`
+    const that = this
+    window.onresize = function temp () {
+      that.clientHeight = `height: ${document.body.scrollHeight - 65}px`
+    }
     this.getUserList()
   }
 }
@@ -119,18 +125,12 @@ export default {
 
 <style scoped lang="scss">
 $color-primary: #20a0ff;//#18c79c
-
-.main-container {
-  overflow-y: hidden;
-}
 .header{
-  height: 60px;
   line-height: 60px;
   background: $color-primary;
   color:#fff;
 }
 .logo{
-  height:60px;
   color: #fff;
   font-size: 22px;
   padding-left:20px;
@@ -142,19 +142,15 @@ $color-primary: #20a0ff;//#18c79c
   padding-right: 3%;
   float: right;
   .userinfo-inner {
-      cursor: pointer;
-      color: #fff;
-      img {
-          width: 40px;
-          height: 40px;
-          border-radius: 20px;
-          margin: 10px 0px 10px 10px;
-          float: right;
-      }
+    cursor: pointer;
+    color: #fff;
+    img {
+        width: 40px;
+        height: 40px;
+        border-radius: 20px;
+        margin: 10px 0px 10px 10px;
+        float: right;
+    }
   }
-}
-
-.main-content {
-  flex:1;
 }
 </style>

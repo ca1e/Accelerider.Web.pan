@@ -17,7 +17,7 @@
       span Total: {{filelist.length}}
       el-button(@click='goFileList')
         i(class='fa fa-refresh', aria-hidden='true', v-bind:class='isLoading ? "fa-spin" : "fa"')
-  el-row.frame-main
+  el-row
     el-col(v-loading='isLoading')
       el-table.filelist(v-bind:data='filelist', empty-text='文件夹是空的哟', @select='(s,r)=>{selectedFiles=s}', @select-all='(s)=>{selectedFiles=s}')
         el-table-column(type='selection')
