@@ -1,11 +1,11 @@
 <template lang="pug">
-.dialog(v-bind:value='value')
-  el-dialog(v-bind:visible.sync='showDlg',title='下载链接')
+.dialog(:value='value')
+  el-dialog(:visible.sync='showDlg',title='下载链接')
     div(v-for='item in downlinks',key = 'item')
       p {{item.name}}
       ol
         li(v-for='url in item.urls',key = 'url')
-          a(v-bind:href='url',target='_blank',rel="noreferrer") 链接
+          a(:href='url',target='_blank',rel="noreferrer") 链接
           el-button(type='text', @click='downwitharia2(url, item.name)') aria2下载
 </template>
 

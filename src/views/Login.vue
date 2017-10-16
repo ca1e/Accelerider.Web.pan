@@ -3,9 +3,9 @@
   el-row
     el-col.logo
       span 坐骑WEB
-    el-col(type='flex',v-bind:sm='{span:10,offset:12}',v-bind:md='{span:9,offset:14}',v-bind:lg='{span:6,offset:16}')
+    el-col(type='flex',:sm='{span:10,offset:12}',:md='{span:9,offset:14}',:lg='{span:6,offset:16}')
       el-card.login-container
-        el-form(v-bind:model='loginForm')
+        el-form(:model='loginForm')
           h3.title 登录坐骑
           el-form-item(prop="account")
             el-input#username(v-model='loginForm.account', placeholder="帐号")
@@ -14,7 +14,7 @@
           el-form-item
             el-checkbox(label='自动登录', v-model="autologin")
           el-form-item.full-width
-            el-button.full-width(type='primary', @click='login',v-bind:loading='logining')
+            el-button.full-width(type='primary', @click='login',:loading='logining')
               | 登录
           el-form-item
             el-button(type='text',@click='register')

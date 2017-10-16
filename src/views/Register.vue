@@ -3,16 +3,16 @@
   el-row
     el-col.logo
       span 坐骑WEB
-    el-col(type='flex',v-bind:sm='{span:10,offset:12}',v-bind:md='{span:9,offset:14}',v-bind:lg='{span:6,offset:16}')
+    el-col(type='flex',:sm='{span:10,offset:12}',:md='{span:9,offset:14}',:lg='{span:6,offset:16}')
       el-card.login-container
-        el-form(v-bind:model='signupForm')
+        el-form(:model='signupForm')
           h3.title 注册坐骑
           el-form-item(prop="account")
             el-input#username(v-model='signupForm.account', placeholder="帐号")
           el-form-item(prop="password")
             el-input#password(type='password',v-model='signupForm.password', placeholder="密码")
           el-form-item.full-width
-            el-button.full-width(type='primary', @click='register', v-bind:loading='regLoading')
+            el-button.full-width(type='primary', @click='register', :loading='regLoading')
               | 注册帐号
           el-form-item
             el-button(type='text',@click='login')

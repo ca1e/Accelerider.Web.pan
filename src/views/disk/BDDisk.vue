@@ -1,11 +1,11 @@
 <template lang="pug">
 .bddisk
   el-row(type="flex")
-    el-col(v-bind:span='2', v-if='utils.pathmanager().getPath() != "/"')
+    el-col(:span='2', v-if='utils.pathmanager().getPath() != "/"')
       el-button(type='text',@click='backFileList',icon='el-icon-arrow-left') BACK
     el-col.breadcrumb
-      el-breadcrumb(separator=">",v-bind:replace='true')
-        el-breadcrumb-item(v-for='p in utils.pathmanager().pathSegmtt()',v-bind:to="{query:{path:p.path}}",key = 'p')
+      el-breadcrumb(separator=">",:replace='true')
+        el-breadcrumb-item(v-for='p in utils.pathmanager().pathSegmtt()',:to="{query:{path:p.path}}",key = 'p')
           | {{p.name}}
   el-row(type="flex")
     el-col
@@ -13,20 +13,19 @@
       el-button-group(v-if='selectedFiles.length>0')
         el-button(@click='downloadFiles(selectedFiles)') 下载
         el-button(@click='deleteFiles', icon='el-icon-delete') 删除
-    el-col(v-bind:span='4')
+    el-col(:span='4')
       span Total: {{filelist.length}}
       el-button(@click='goFileList')
-        i(class='fa fa-refresh', aria-hidden='true', v-bind:class='isLoading ? "fa-spin" : "fa"')
+        i(class='fa fa-refresh', aria-hidden='true', :class='isLoading ? "fa-spin" : "fa"')
   el-row
     el-col(v-loading='isLoading')
-      el-table.filelist(v-bind:data='filelist', empty-text='文件夹是空的哟', @select='(s,r)=>{selectedFiles=s}', @select-all='(s)=>{selectedFiles=s}')
+      el-table.filelist(:data='filelist', empty-text='文件夹是空的哟', @select='(s,r)=>{selectedFiles=s}', @select-all='(s)=>{selectedFiles=s}')
         el-table-column(type='selection')
         el-table-column(label='文件名',show-overflow-tooltip,min-width='200')
-          template(slot-scope="scope")
-            el-col(v-bind:span='19').file-name
-              img.fileicon(v-bind:src='_fileTypeUri(scope.row)',height=30)
-              span(v-bind:class="scope.row.isdir == 1? 'open-enable': 'normal'", @click='changefilepath(scope.row)')
-                  | {{scope.row.filename}}
+          el-col.file-name(slot-scope="scope",:span='19')
+            img.fileicon(:src='_fileTypeUri(scope.row)',height=30)
+            span(:class="scope.row.isdir == 1? 'open-enable': 'normal'", @click='changefilepath(scope.row)')
+                | {{scope.row.filename}}
         el-table-column(label='-',show-overflow-tooltip,width='100')
           template(slot-scope="scope")
             el-dropdown(trigger="click")
@@ -41,14 +40,12 @@
                 el-dropdown-item(divided, @click.native.prevent='((f)=>{curFile=f;dialogProP=true;})(scope.row)') 属性
                 el-dropdown-item(@click.native.prevent='deleteFile(scope.row)') 删除
         el-table-column(label='大小',width='120')
-          template(slot-scope="scope")
-            | {{utils.transeSize(scope.row.size)}}
+          div(slot-scope="scope") {{utils.transeSize(scope.row.size)}}
         el-table-column(label='修改日期',show-overflow-tooltip,width='160')
-          template(slot-scope="scope")
-            | {{utils.transeTime(scope.row.server_mtime)}}
+          div(slot-scope="scope") {{utils.transeTime(scope.row.server_mtime)}}
   .dialog
-    down-dialog(v-model='dialogDL', v-bind:downlinks='downlinks')
-    el-dialog(v-bind:visible.sync='dialogProP',title='文件属性')
+    down-dialog(v-model='dialogDL', :downlinks='downlinks')
+    el-dialog(:visible.sync='dialogProP',title='文件属性')
       p 文件名： {{curFile.filename}}
       p 文件大小： {{utils.transeSize(curFile)}}
       p(v-if='curFile.isdir==1') 是否有子目录： {{curFile.dir_empty==0}}

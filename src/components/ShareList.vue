@@ -4,7 +4,7 @@
     el-button(type='text',@click='backFileList',icon='arrow-left') BACK
   el-row.disk-table
     file-list(pre_='share_')
-  el-dialog(v-bind:visible.sync='parseUrl')
+  el-dialog(:visible.sync='parseUrl')
     el-form.sharelist
       el-form-item(label='分享链接')
         el-input#shareurl(v-model='shareurl')

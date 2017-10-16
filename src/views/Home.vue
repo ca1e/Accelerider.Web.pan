@@ -2,42 +2,42 @@
 el-container
   el-header.header
     el-row
-      el-col.logo(v-bind:span='10')
+      el-col.logo(:span='10')
         //- img(src='static/logo.png')
         span 坐骑WEB
-      el-col.userinfo(v-bind:span='4')
+      el-col.userinfo(:span='4')
         el-button(v-if='!isbind',@click='binding') 尚未绑定百度账号
         el-dropdown(trigger="hover", v-if='isbind')
           span.el-dropdown-link.userinfo-inner
-            img(v-bind:src='userInfo.avatar_url')
+            img(:src='userInfo.avatar_url')
             | {{userInfo.Name}}
           el-dropdown-menu(slot="dropdown")
             el-dropdown-item 用量:{{utils.percentSize(userInfo.used,userInfo.total)}}%
             el-dropdown-item(@click.native='changeUser') 切换帐号
             el-dropdown-item(divided, @click.native='logout') 退出登录
-  el-container.main-container(v-bind:style="clientHeight")
+  el-container.main-container(:style="clientHeight")
     el-aside(width='200px')
-      el-menu(v-bind:default-active="$route.path", router)
+      el-menu(:default-active="$route.path", router)
         template(v-for="(item,index) in $router.options.routes[2].children")
-          el-submenu(v-bind:index="index+''", v-if="item.children&&item.children.length>0")
+          el-submenu(:index="index+''", v-if="item.children&&item.children.length>0")
             template(slot="title")
-              i(v-bind:class="item.iconCls")
+              i(:class="item.iconCls")
               | {{item.name}}
-            el-menu-item(v-for="child in item.children", key='child', v-bind:index="item.path + '/' + child.path", v-show='!child.hidden')
-              i(v-bind:class='child.iconCls')
+            el-menu-item(v-for="child in item.children", key='child', :index="item.path + '/' + child.path", v-show='!child.hidden')
+              i(:class='child.iconCls')
               | {{child.name}}
-          el-menu-item(v-bind:index="item.path", v-if="!item.children")
-            i(v-bind:class="item.iconCls")
+          el-menu-item(:index="item.path", v-if="!item.children")
+            i(:class="item.iconCls")
             | {{item.name}}
       el-row
-        el-progress(type="circle", v-bind:percentage="utils.percentSize(userInfo.used,userInfo.total)")
+        el-progress(type="circle", :percentage="utils.percentSize(userInfo.used,userInfo.total)")
     el-main
       el-card
         transition
           router-view
-  el-dialog(v-bind:visible.sync='bindDlg')
+  el-dialog(:visible.sync='bindDlg')
     bind-form
-  el-dialog(v-bind:visible.sync='ukDlg')
+  el-dialog(:visible.sync='ukDlg')
     user-info
     el-button(type='text',@click='binding') 新增绑定
 </template>
