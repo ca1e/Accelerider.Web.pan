@@ -22,13 +22,13 @@
       el-table.filelist(v-bind:data='filelist', empty-text='文件夹是空的哟', @select='(s,r)=>{selectedFiles=s}', @select-all='(s)=>{selectedFiles=s}')
         el-table-column(type='selection')
         el-table-column(label='文件名',show-overflow-tooltip,min-width='200')
-          template(scope="scope")
+          template(slot-scope="scope")
             el-col(v-bind:span='19').file-name
               img.fileicon(v-bind:src='_fileTypeUri(scope.row)',height=30)
               span(v-bind:class="scope.row.isdir == 1? 'open-enable': 'normal'", @click='changefilepath(scope.row)')
                   | {{scope.row.filename}}
         el-table-column(label='-',show-overflow-tooltip,width='100')
-          template(scope="scope")
+          template(slot-scope="scope")
             el-dropdown(trigger="click")
               el-button(type='text')
                 i(class='el-icon-more')
@@ -41,10 +41,10 @@
                 el-dropdown-item(divided, @click.native.prevent='((f)=>{curFile=f;dialogProP=true;})(scope.row)') 属性
                 el-dropdown-item(@click.native.prevent='deleteFile(scope.row)') 删除
         el-table-column(label='大小',width='120')
-          template(scope="scope")
+          template(slot-scope="scope")
             | {{utils.transeSize(scope.row.size)}}
         el-table-column(label='修改日期',show-overflow-tooltip,width='160')
-          template(scope="scope")
+          template(slot-scope="scope")
             | {{utils.transeTime(scope.row.server_mtime)}}
   .dialog
     down-dialog(v-model='dialogDL', v-bind:downlinks='downlinks')

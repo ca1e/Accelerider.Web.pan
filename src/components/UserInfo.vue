@@ -3,10 +3,10 @@
   el-table(v-bind:data='userInfos',border)
     el-table-column(prop='Name',label='昵称')
     el-table-column(label='用量(已用/总量)')
-      template(scope="scope")
+      template(slot-scope="scope")
         | {{utils.transeSize(scope.row.used)}}/{{utils.transeSize(scope.row.total)}}
     el-table-column(label='操作')
-      template(scope="scope")
+      template(slot-scope="scope")
         el-button.operation-menu(@click="gotoDisk(scope.row.uk)",v-bind:loading='infoLoading')
           | 切换
 </template>

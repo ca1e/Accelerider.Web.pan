@@ -26,13 +26,13 @@
           el-table.filelist(v-bind:data='m4sfilelist', empty-text='文件夹是空的哟', @select='(s,r)=>{selectedFiles=s}', @select-all='(s)=>{selectedFiles=s}')
             el-table-column(type='selection')
             el-table-column(label='文件名',show-overflow-tooltip,min-width='200')
-              template(scope="scope")
+              template(slot-scope="scope")
                 el-col(v-bind:span='19').file-name
                   img.fileicon(v-bind:src='_fileTypeUri(scope.row)',height=30)
                   span(v-bind:class="scope.row.dir == 1 ? 'open-enable': 'normal'", @click='changefilepath(scope.row)')
                       | {{scope.row.filename}}
             el-table-column(label='-',show-overflow-tooltip,width='100')
-              template(scope="scope")
+              template(slot-scope="scope")
                 el-dropdown(trigger="click")
                   el-button(type='text')
                     i(class='el-icon-more')
@@ -44,10 +44,10 @@
                     el-dropdown-item(@click.native.prevent='add2plaza($squareAPI,scope.row)') 添加到广场
                     el-dropdown-item(divided, @click.native.prevent='deleteFile(scope.row)') 删除
             el-table-column(label='大小',width='120')
-              template(scope='scope')
+              template(slot-scope='scope')
                 span {{utils.transeSize(scope.row.size)}}
             el-table-column(label='创建时间',show-overflow-tooltip,width='160')
-              template(scope='scope')
+              template(slot-scope='scope')
                 span {{utils.transeTime(scope.row.ctime)}}
     el-tab-pane(label='离线')
       el-row(type="flex")
@@ -63,15 +63,15 @@
             el-table-column(label='名称',prop='name',show-overflow-tooltip,min-width='200')
             el-table-column(label='链接',prop='link',show-overflow-tooltip,min-width='200')
             el-table-column(label='状态',width='100')
-              template(scope="scope")
+              template(slot-scope="scope")
                 el-tag(type='success', v-if='scope.row.state === 0') 已完成
                 el-tag(type='warning', v-if='scope.row.state === 1') 正在初始化
                 el-tag(type='primary', v-if='scope.row.state === 2') 下载中
             el-table-column(label='进度',width='100')
-              template(scope="scope")
+              template(slot-scope="scope")
                 span {{scope.row.downloadedCount}}/{{scope.row.totalCount}}
             el-table-column(label='速度',width='140')
-              template(scope="scope")
+              template(slot-scope="scope")
                 span {{utils.transeSpeed(scope.row.speed)}}
     el-tab-pane(label='分享')
       span 敬请期待

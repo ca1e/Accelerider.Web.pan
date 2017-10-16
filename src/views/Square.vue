@@ -15,15 +15,15 @@
     el-table(v-bind:data='filelist', empty-text='你来到了空无一人的广场', style='width:100%')
         el-table-column(label='文件名',prop='FileName',show-overflow-tooltip,min-width='200')
         el-table-column(label='-',show-overflow-tooltip,width='100')
-          template(scope="scope")
+          template(slot-scope="scope")
             el-button(type='text', @click='downloadFile(scope.row)') 下载
         el-table-column(label='分享者',prop='From', width='140')
         el-table-column(label='分享留言',prop='Message',show-overflow-tooltip,width='180')
         el-table-column(label='评论数',width='80')
-          template(scope='scope')
+          template(slot-scope='scope')
             el-button(type='text', @click='showComments(scope.row)') {{scope.row.Comments.length}}
         el-table-column(label='分享时间',show-overflow-tooltip,width='160')
-          template(scope='scope')
+          template(slot-scope='scope')
             span {{utils.transeTime(scope.row.Time)}}
   el-row(type="flex", v-bind:gutter='50')
     el-col
@@ -43,7 +43,7 @@
         el-table-column(label='评论',prop='Message')
         el-table-column(label='评论人',prop='From', width='130')
         el-table-column(label='评论时间')
-          template(scope="scope")
+          template(slot-scope="scope")
             span {{utils.transeTime(scope.row.Time)}}
       el-row
         el-form(v-bind:inline='true')
