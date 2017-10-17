@@ -1,6 +1,6 @@
 import baseAPI from './base/baseAPI'
 
-class ShareAPI {
+class ShareAPI extends baseAPI {
   constructor () {
     super(process.env.REST_BASE_URL)
   }

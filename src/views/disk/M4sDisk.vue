@@ -23,7 +23,7 @@
             i(class='fa fa-refresh', aria-hidden='true', :class='isLoading ? "fa-spin" : "fa"')
       el-row
         el-col(v-loading='isLoading')
-          el-table.filelist(:data='m4sfilelist', empty-text='文件夹是空的哟', @select='(s,r)=>{selectedFiles=s}', @select-all='(s)=>{selectedFiles=s}')
+          el-table.filelist(:data='m4sfilelist', empty-text='文件夹是空的哟', @row-dblclick='(r,e)=>{changefilepath(r)}', @select='(s,r)=>{selectedFiles=s}', @select-all='(s)=>{selectedFiles=s}')
             el-table-column(type='selection')
             el-table-column(label='文件名',show-overflow-tooltip,min-width='200')
               el-col.file-name(slot-scope="scope", :span='19')
