@@ -2,6 +2,10 @@
 import PM from './pathmanager'
 
 class Utils{
+  check_login () {
+    return !localStorage.getItem('accessToken')
+  }
+
   downloadFromFrame (url) {
     let ifram = document.getElementById('helperdownloadiframe')
     ifram.setAttribute('src', url)

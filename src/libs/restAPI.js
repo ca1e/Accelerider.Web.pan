@@ -1,21 +1,10 @@
-import axios from 'axios'
+import baseAPI from './base/baseAPI'
 import qs from 'qs'
 import MD5 from './cryptos'
 
-class RestAPI {
+class RestAPI extends baseAPI {
   constructor () {
-    this.$ajax = axios.create({
-      baseURL: process.env.REST_BASE_URL,
-      headers: {}
-    })
-    this.$ajax.interceptors.response.use(
-      (config) => { return config },
-      (err) => {
-        let msg = ''
-        if (err.response) { msg = err.response.data.message } else { msg = err.message }
-        throw new Error(msg)
-      }
-    )
+    super(process.env.REST_BASE_URL)
   }
   signup (username, password) {
     const url = '/signup'

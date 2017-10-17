@@ -1,20 +1,9 @@
-import axios from 'axios'
+import baseAPI from './base/baseAPI'
 import qs from 'qs'
 
-class M4sAPI {
+class M4sAPI extends baseAPI {
   constructor () {
-    this.$ajax = axios.create({
-      baseURL: process.env.REST_BASE_URL + '/cloud',
-      headers: {}
-    })
-    this.$ajax.interceptors.response.use(
-      (config) => { return config },
-      (err) => {
-        let msg = ''
-        if (err.response) { msg = err.response.data.message } else { msg = err.message }
-        throw new Error(msg)
-      }
-    )
+    super(process.env.REST_BASE_URL + '/cloud')
   }
   filelist (token, path) {
     const url = '/filelist'

@@ -3,14 +3,14 @@
   el-row(type="flex", :gutter='50')
     el-col
       el-button-group
-        el-button(type="primary",size="small", icon="el-icon-arrow-left", @click='prePage()') 上一页
-        el-button(type="primary",size="small", @click='nextPage()') 下一页
+        el-button(type="primary", icon="el-icon-arrow-left", @click='prePage()') 上一页
+        el-button(type="primary", @click='nextPage()') 下一页
           i(class='el-icon-arrow-right el-icon-right')
     el-col
-      el-input(v-model='searchs',size="small", prefix-icon="el-icon-search", @keyup.enter.native='searchplaza')
+      el-input(v-model='searchs', prefix-icon="el-icon-search", @keyup.enter.native='searchplaza')
     el-col
       span 当前页码:
-      el-input-number(v-model='page',size="small", :min="1")
+      el-input-number(v-model='page', :min="1")
   el-row(type="flex", v-loading='isLoading')
     el-table(:data='filelist', empty-text='你来到了空无一人的广场', style='width:100%')
         el-table-column(label='文件名',prop='FileName',show-overflow-tooltip,min-width='200')
@@ -27,14 +27,14 @@
   el-row(type="flex", :gutter='50')
     el-col
       el-button-group
-        el-button(type="primary",size="small", icon="el-icon-arrow-left", @click='prePage()') 上一页
-        el-button(type="primary",size="small", @click='nextPage()') 下一页
+        el-button(type="primary", icon="el-icon-arrow-left", @click='prePage()') 上一页
+        el-button(type="primary", @click='nextPage()') 下一页
           i(class='el-icon-arrow-right el-icon-right')
     el-col
-      el-input(v-model='searchs',size="small", prefix-icon="el-icon-search", @keyup.enter.native='searchplaza')
+      el-input(v-model='searchs', prefix-icon="el-icon-search", @keyup.enter.native='searchplaza')
     el-col
       span 当前页码:
-      el-input-number(v-model='page',size="small", :min="1")
+      el-input-number(v-model='page', :min="1")
   .dialog
     down-dialog(v-model='dialogDL', :downlinks='downlinks')
     el-dialog(v-model='dialogCm',title='评论区')

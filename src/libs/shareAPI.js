@@ -1,11 +1,8 @@
-import axios from 'axios'
+import baseAPI from './base/baseAPI'
 
 class ShareAPI {
   constructor () {
-    this.$ajax = axios.create({
-      baseURL: process.env.REST_BASE_URL,
-      headers: {}
-    })
+    super(process.env.REST_BASE_URL)
   }
   getsharetoken (shareUrl, password) {
     const url = '/sharefiles'
@@ -15,11 +12,6 @@ class ShareAPI {
       params: { 'shareurl': shareUrl, 'pass': password }
     })
       .then(response => response.data.token)
-      .catch(err => {
-        let msg = ''
-        if (err.response) { msg = err.response.data.message } else { msg = err.message }
-        throw msg
-      })
   }
   getsharelist (token, path) {
     const url = '/sharefiles'
@@ -35,11 +27,6 @@ class ShareAPI {
       .then(data => {
         if (data.errno !== 0) { throw new Error(data.message) }
         return data.list
-      })
-      .catch(err => {
-        let msg = ''
-        if (err.response) { msg = err.response.data.message } else { msg = err.message }
-        throw msg
       })
   }
   downsharelinks (token, files) {
