@@ -10,7 +10,7 @@
           el-form-item(prop="account")
             el-input#username(v-model='loginForm.account', placeholder="帐号")
           el-form-item(prop="password")
-            el-input#password(type='password',v-model='loginForm.password', placeholder="密码", @change='login')
+            el-input#password(type='password',v-model='loginForm.password', placeholder="密码", @keyup.enter.native='login')
           el-form-item
             el-checkbox(label='自动登录', v-model="autologin")
           el-form-item.full-width
