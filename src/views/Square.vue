@@ -37,7 +37,7 @@
       el-input-number(v-model='page', :min="1")
   .dialog
     down-dialog(v-model='dialogDL', :downlinks='downlinks')
-    el-dialog(v-model='dialogCm',title='评论区')
+    el-dialog(:visible.sync='dialogCm',title='评论区')
       el-table(:data='comments', empty-text='此文件还没有人评论', height='260')
         el-table-column(label='评论',prop='Message')
         el-table-column(label='评论人',prop='From', width='130')

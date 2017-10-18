@@ -62,8 +62,9 @@
             el-table-column(label='状态',width='100')
               div(slot-scope="scope")
                 el-tag(type='success', v-if='scope.row.state === 0') 已完成
-                el-tag(type='warning', v-if='scope.row.state === 1') 正在初始化
-                el-tag(type='primary', v-if='scope.row.state === 2') 下载中
+                el-tag(type='warning', v-else-if='scope.row.state === 1') 正在初始化
+                el-tag(type='primary', v-else-if='scope.row.state === 2') 下载中
+                el-tag(type='gray', v-else) 未知
             el-table-column(label='进度',width='100')
               div(slot-scope="scope") {{scope.row.downloadedCount}}/{{scope.row.totalCount}}
             el-table-column(label='速度',width='140')
