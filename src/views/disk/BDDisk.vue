@@ -99,7 +99,6 @@ export default {
       if (this.downlinks.length === 1) {
         const crlinks = this.downlinks[0].urls
         this.utils.downloadFromFrame(crlinks[0])
-        return
       }
       this.dialogDL = true
     },

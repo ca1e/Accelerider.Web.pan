@@ -4,7 +4,7 @@ el-container
     el-row
       el-col.logo(:span='10')
         //- img(src='static/logo.png')
-        span 坐骑WEB
+        span(@click='toggleAside') 坐骑WEB
       el-col.userinfo(:span='4')
         el-button(v-if='!isbind',@click='binding') 尚未绑定百度账号
         el-dropdown(trigger="hover", v-if='isbind')
@@ -15,26 +15,25 @@ el-container
             el-dropdown-item 用量:{{utils.percentSize(userInfo.used,userInfo.total)}}%
             el-dropdown-item(@click.native='changeUser') 切换帐号
             el-dropdown-item(divided, @click.native='logout') 退出登录
-  el-container.main-container(:style="clientHeight")
-    el-aside(width='200px')
-      el-menu(:default-active="$route.path", router)
+  el-container(:style="clientHeight")
+    el-aside(width='1')
+      el-menu(:default-active="$route.path", router, :collapse="isCollapse")
         template(v-for="(item,index) in $router.options.routes[2].children")
           el-submenu(:index="index+''", v-if="item.children&&item.children.length>0")
             template(slot="title")
               i(:class="item.iconCls")
-              | {{item.name}}
+              span(slot='title') {{item.name}}
             el-menu-item(v-for="child in item.children", key='child', :index="item.path + '/' + child.path", v-show='!child.hidden')
               i(:class='child.iconCls')
-              | {{child.name}}
+              span(slot='title') {{child.name}}
           el-menu-item(:index="item.path", v-if="!item.children")
             i(:class="item.iconCls")
-            | {{item.name}}
+            span(slot='title') {{item.name}}
       el-row
-        el-progress(type="circle", :percentage="utils.percentSize(userInfo.used,userInfo.total)")
+        //- el-progress(type="circle", :percentage="utils.percentSize(userInfo.used,userInfo.total)")
     el-main
-      el-card
-        transition
-          router-view
+      transition
+        router-view
   el-dialog(:visible.sync='bindDlg')
     bind-form
   el-dialog(:visible.sync='ukDlg')
@@ -50,7 +49,8 @@ export default {
   mixins: [loginmixin],
   data () {
     return {
-      clientHeight: 'height: 600px',
+      isCollapse: false,
+      clientHeight: 'height: 300px',
       isbind: false,
       bindDlg: false,
       ukDlg: false
@@ -63,6 +63,9 @@ export default {
     })
   },
   methods: {
+    toggleAside: function () {
+      this.isCollapse = !this.isCollapse
+    },
     binding: function () {
       this.bindDlg = true
     },
@@ -113,10 +116,10 @@ export default {
     }
   },
   mounted () {
-    this.clientHeight = `height: ${document.body.scrollHeight - 65}px`
+    this.clientHeight = `height: ${document.documentElement.clientHeight - 65}px`
     const that = this
     window.onresize = function temp () {
-      that.clientHeight = `height: ${document.body.scrollHeight - 65}px`
+      that.clientHeight = `height: ${document.documentElement.clientHeight - 65}px`
     }
     this.getUserList()
   }
@@ -136,6 +139,7 @@ $color-primary: #20a0ff;//#18c79c
   padding-left:20px;
   padding-right:20px;
   width:25%;
+  cursor: pointer;
 }
 .userinfo {
   text-align: right;

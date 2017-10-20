@@ -57,7 +57,11 @@ class SquareAPI extends baseAPI {
       url: url,
       params: { md5: md5 }
     })
-      .then(response => response.data.links)
+      .then(response => response.data)
+      .then(data => {
+        if (data.errno !== 0) { throw new Error(data.message) }
+        return data.links
+      })
   }
 }
 

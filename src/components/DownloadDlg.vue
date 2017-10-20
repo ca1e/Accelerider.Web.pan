@@ -3,10 +3,12 @@
   el-dialog(:visible.sync='showDlg',title='下载链接')
     div(v-for='item in downlinks',key = 'item')
       p {{item.name}}
-      ol
-        li(v-for='url in item.urls',key = 'url')
-          a(:href='url',target='_blank',rel="noreferrer") 链接
-          el-button(type='text', @click='downwitharia2(url, item.name)') aria2下载
+      span 文件将会自动下载，如出现问题请
+      a(:href='item.urls[0]',target='_blank',rel="noreferrer") 手动下载
+      el-button(type='text', @click='downwitharia2(item.urls[0], item.name)') aria2下载
+        //- li(v-for='url in item.urls',key = 'url')
+        //-   a(:href='url',target='_blank',rel="noreferrer") 链接
+        //-   el-button(type='text', @click='downwitharia2(url, item.name)') aria2下载
 </template>
 
 <script>
