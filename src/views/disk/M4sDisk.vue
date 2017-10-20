@@ -10,8 +10,8 @@
             el-breadcrumb-item(v-for='p in utils.pathmanager().pathSegmtt()',:to="{query:{path:p.path}}",key = 'p')
               | {{p.name}}
       el-row(type="flex")
-        //- el-upload(ref="upload", :auto-upload="false", :on-change='upfilechange', :action='uploadUrl', :show-file-list='false', :before-upload='beforeupload')
-        //-   el-button(type="primary") 上传
+        el-upload(:auto-upload="false", :on-change='flashupload', action='http://localhost/', :show-file-list='false')
+          el-button(type="primary") 秒传
         el-col
           el-button(@click='createFolder', icon='el-icon-plus') 新建文件夹
           el-button(@click='pasteHere', icon='el-icon-paste', v-if='clipboard!=null') 粘贴
@@ -113,12 +113,12 @@ export default {
       this.$m4sAPI.downfiles(this.token, file.path)
         .then(links=>{
           this.$store.commit('viewloading', false)
-          // this.dialogDL = true
-          // this.downlinks = [{
-          //   name: file.filename,
-          //   urls: links
-          // }]
+          this.downlinks = [{
+            name: file.filename,
+            urls: links
+          }]
           this.utils.downloadFromFrame(links[0])
+          this.dialogDL = true
         })
         .catch((e)=>{
           this.$store.commit('viewloading', false)
@@ -145,6 +145,23 @@ export default {
         .then(data=>{
           this.$message.success(data.errno === 0 ? '创建成功!' : data.message)
           this.goFileList()
+        })
+    },
+    flashupload: function (f, fl) {
+      this.$store.commit('viewloading', true)
+      this.utils.calculateMD5(f.raw)
+        .then(({size, md5})=>{
+          let path = this.utils.pathmanager().getPath()
+          path += '/' + f.name
+          return this.$m4sAPI.flashupload(this.token,path,md5,size)
+        })
+        .then(_=>{
+          this.$store.commit('viewloading', false)
+          this.$message.success('秒传成功!'); this.goFileList()
+        })
+        .catch((er)=>{
+          this.$store.commit('viewloading', false)
+          this.$message.error(er.message)
         })
     },
     copy2clipboard: function (filepath) {

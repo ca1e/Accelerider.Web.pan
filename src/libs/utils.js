@@ -1,5 +1,6 @@
 /* eslint-disable */
 import PM from './pathmanager'
+import SparkMD5 from 'spark-md5'
 
 class Utils{
   check_login () {
@@ -9,6 +10,33 @@ class Utils{
   downloadFromFrame (url) {
     let ifram = document.getElementById('helperdownloadiframe')
     ifram.setAttribute('src', url)
+  }
+
+  calculateMD5 (file) {
+    return new Promise((resolve, reject) => {
+      const spark = new SparkMD5()
+      const blobSlice = File.prototype.mozSlice || File.prototype.webkitSlice || File.prototype.slice
+      const chunkSize = 2097152// read in chunks of 2MB
+      const chunks = Math.ceil(file.size / chunkSize)
+      let currentChunk = 0
+      const fr = new FileReader()
+      fr.onload = (e) => {
+        spark.appendBinary(e.target.result)
+        currentChunk++;
+        if (currentChunk < chunks) { loadNext() }
+        else { resolve({
+          size: file.size,
+          md5: spark.end()
+        })}
+        reject('can not calculate md5!')
+      }
+      const loadNext = () => {
+        const start = currentChunk * chunkSize
+        const end = start + chunkSize >= file.size ? file.size : start + chunkSize
+        fr.readAsBinaryString(blobSlice.call(file, start, end))
+      }
+      loadNext()
+    })
   }
 
   percentSize (a, b) { return Number(((a/b)*100).toFixed(2)) }

@@ -65,6 +65,10 @@ class M4sAPI extends baseAPI {
       })
     })
       .then(response => response.data)
+      .then(data => {
+        if (data.errno !== 0) { throw new Error(data.message) }
+        return data.errno
+      })
   }
   upload2m4s (token, path, md5, size) {
     const url = '/upload'
