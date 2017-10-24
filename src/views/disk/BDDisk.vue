@@ -47,7 +47,7 @@
     down-dialog(v-model='dialogDL', :downlinks='downlinks')
     el-dialog(:visible.sync='dialogProP',title='文件属性')
       p 文件名： {{curFile.filename}}
-      p 文件大小： {{utils.transeSize(curFile)}}
+      p 文件大小： {{utils.transeSize(curFile.size)}}
       p(v-if='curFile.isdir==1') 是否有子目录： {{curFile.dir_empty==0}}
       p 修改时间： {{utils.transeTime(curFile.server_mtime)}}
       p(v-if='curFile.isdir==0') 文件MD5： {{curFile.md5}}
