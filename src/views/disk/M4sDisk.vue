@@ -19,8 +19,7 @@
             el-button(@click='deleteFiles', icon='el-icon-delete') 删除
         el-col(:span='4')
           span Total: {{m4sfilelist.length}}
-          el-button(@click='goFileList')
-            i(class='fa fa-refresh', aria-hidden='true', :class='isLoading ? "fa-spin" : "fa"')
+          i(@click='goFileList', class = 'el-icon-refresh')
       el-row
         el-col(v-loading='isLoading')
           el-table.filelist(:data='m4sfilelist', empty-text='文件夹是空的哟', @row-dblclick='(r,e)=>{changefilepath(r)}', @select='(s,r)=>{selectedFiles=s}', @select-all='(s)=>{selectedFiles=s}')
@@ -52,8 +51,7 @@
           el-button(@click='createOffline', icon='el-icon-plus') 新建离线
           span &nbsp;&nbsp;&nbsp;&nbsp;配额: {{offline.quotacount}}， 过期时间: {{offline.vipTime}}
         el-col
-          el-button(@click='offlinetasks')
-            i(class='fa fa-refresh', aria-hidden='true', :class='isLoading ? "fa-spin" : "fa"')
+          el-button(@click='offlinetasks', icon = 'el-icon-refresh')
       el-row
         el-col
           el-table(:data='offline.list', empty-text='暂时没有离线任务')

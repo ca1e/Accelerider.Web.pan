@@ -11,12 +11,11 @@
     el-col
       el-button(@click='createFolder', icon='el-icon-plus') 新建文件夹
       el-button-group(v-if='selectedFiles.length>0')
-        el-button(@click='downloadFiles(selectedFiles)') 下载
+        el-button(@click='downloadFiles(selectedFiles)', icon='el-icon-download') 下载
         el-button(@click='deleteFiles', icon='el-icon-delete') 删除
     el-col(:span='4')
       span Total: {{filelist.length}}
-      el-button(@click='goFileList')
-        i(class='fa fa-refresh', aria-hidden='true', :class='isLoading ? "fa-spin" : "fa"')
+      i(@click='goFileList', class = 'el-icon-refresh')
   el-row
     el-col(v-loading='isLoading')
       el-table.filelist(:data='filelist', empty-text='文件夹是空的哟', @row-dblclick='(r,e)=>{changefilepath(r)}', @select='(s,r)=>{selectedFiles=s}', @select-all='(s)=>{selectedFiles=s}')

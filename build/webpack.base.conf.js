@@ -20,7 +20,7 @@ module.exports = {
       : config.dev.assetsPublicPath
   },
   resolve: {
-    extensions: ['.js', '.vue', '.json'],
+    extensions: ['.js', '.vue', '.json', '.ts'],
     alias: {
       '@': resolve('src'),
     }
@@ -49,6 +49,20 @@ module.exports = {
       {
         test: /\.pug$/,
         loader: 'pug-loader'
+      },
+      {
+        test: /\.ts$/,
+        exclude: /node_modules/,
+        enforce: 'pre',
+        loader: 'tslint-loader'
+      },
+      {
+        test: /\.tsx?$/,
+        loader: 'ts-loader',
+        exclude: /node_modules/,
+        options: {
+          appendTsSuffixTo: [/\.vue$/],
+        }
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,

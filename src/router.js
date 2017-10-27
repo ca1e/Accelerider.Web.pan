@@ -44,14 +44,14 @@ const routers = {
               path: 'm4s',
               name: '坐骑云',
               component: DM4s,
-              iconCls: 'el-icon-document'
+              iconCls: 'el-icon-edit'
             },
             {
               path: 'onedrive',
               name: 'onedrive',
               hidden: true,
               component: DOneDrive,
-              iconCls: 'el-icon-edit'
+              iconCls: 'el-icon-document'
             }
           ]
         },
@@ -59,13 +59,13 @@ const routers = {
           path: '/square',
           name: '广场',
           component: Square,
-          iconCls: 'el-icon-view'
+          iconCls: 'el-icon-share'
         },
         {
           path: '/about',
           name: '关于',
           component: About,
-          iconCls: 'el-icon-information'
+          iconCls: 'el-icon-info'
         }
       ]
     },

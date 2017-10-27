@@ -7,6 +7,7 @@ el-container
         span(@click='toggleAside') 坐骑WEB
       el-col.userinfo(:span='4')
         el-button(v-if='!isbind',@click='binding') 尚未绑定百度账号
+        el-button(v-if='!isbind',@click='logout') 退出
         el-dropdown(trigger="hover", v-if='isbind')
           span.el-dropdown-link.userinfo-inner
             img(:src='userInfo.avatar_url')
