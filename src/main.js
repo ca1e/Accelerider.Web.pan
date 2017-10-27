@@ -6,7 +6,6 @@ import store from './vuex'
 import 'normalize.css'
 import App from './App'
 import Routers from './router.js'
-import 'font-awesome/css/font-awesome.min.css'
 import {RestAPI, M4sAPI, SquareAPI, Aria2API, Utils} from './libs'
 
 import ElementUI from 'element-ui'
