@@ -7,7 +7,7 @@
           el-button(type='text',@click='backFileList',icon='el-icon-arrow-left') BACK
         el-col.breadcrumb
           el-breadcrumb(separator=">",:replace='true')
-            el-breadcrumb-item(v-for='p in utils.pathmanager().pathSegmtt()',:to="{query:{path:p.path}}",key = 'p')
+            el-breadcrumb-item(v-for='p in utils.pathmanager().pathSegmtt()',:to="{query:{path:p.path}}", :key = 'p.name')
               | {{p.name}}
       el-row(type="flex")
         el-upload(:auto-upload="false", :on-change='flashupload', action='http://localhost/', :show-file-list='false')
@@ -167,7 +167,7 @@ export default {
     },
     pasteHere: function () {
       let topath = this.utils.pathmanager().getPath()
-      topath += '/' + this.clipboard.fileName
+      topath += '/' + this.clipboard
       this.$m4sAPI.copyFile(this.token,this.clipboard,topath)
         .then(a=>{ this.$message.success('粘贴成功!'); this.clipboard = null; this.goFileList() })
         .catch(e=>this.$message.error(e.message))

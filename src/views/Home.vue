@@ -24,7 +24,7 @@ el-container
             template(slot="title")
               i(:class="item.iconCls")
               span(slot='title') {{item.name}}
-            el-menu-item(v-for="child in item.children", key='child', :index="item.path + '/' + child.path", v-show='!child.hidden')
+            el-menu-item(v-for="child in item.children", :key='child.path', :index="item.path + '/' + child.path", v-show='!child.hidden')
               i(:class='child.iconCls')
               span(slot='title') {{child.name}}
           el-menu-item(:index="item.path", v-if="!item.children")
