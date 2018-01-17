@@ -19,8 +19,14 @@
       li 对于Aria2管理，由于尚未集成，目前推荐使用
         a(href='http://ariang.mayswind.net/latest',target='_blank') AriaNg
         | ，请不要忘记设置token。
-    div 3.官方QQ群 553683933
-    div 4.给作者来杯咖啡钱，饿死了就没人更新了。
+    div
+     | 3.官方QQ群:
+     a(href='https://jq.qq.com/?_wv=1027&k=5VzLLcU') 553683933
+     a(href='https://jq.qq.com/?_wv=1027&k=5FANRrC') 161527520
+     a(href='https://jq.qq.com/?_wv=1027&k=5pT5rzL') 248372475
+     br
+     h4 注意：每人只允许加入一个QQ群，多加群机器人会自动清理。
+    div 4.给作者来杯咖啡钱，这样你们想加功能也理直气壮不是。
     el-row(type="flex")
       el-col
         img(src='../assets/wechat.png',title='请在新窗口打开以查看大图',alt='微信支付',height=300)
@@ -31,5 +37,8 @@
 .code {
   padding: 0.5em;
   border: solid 1px #e1e4e5;
+}
+a {
+  margin: auto 10px
 }
 </style>
