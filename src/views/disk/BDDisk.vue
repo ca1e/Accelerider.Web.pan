@@ -97,7 +97,7 @@ export default {
       }
       if (this.downlinks.length === 1) {
         const crlinks = this.downlinks[0].urls
-        this.utils.downloadFromFrame(crlinks[0])
+        this.utils.downloadFromBsr(this.downlinks[0].name, crlinks[0])
       }
       this.dialogDL = true
     },

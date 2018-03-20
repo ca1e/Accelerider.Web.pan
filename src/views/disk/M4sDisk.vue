@@ -115,7 +115,7 @@ export default {
             name: file.filename,
             urls: links
           }]
-          this.utils.downloadFromFrame(links[0])
+          this.utils.downloadFromBsr(file.filename, links[0])
           this.dialogDL = true
         })
         .catch((e)=>{

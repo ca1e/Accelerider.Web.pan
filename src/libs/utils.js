@@ -7,9 +7,11 @@ class Utils{
     return !localStorage.getItem('accessToken')
   }
 
-  downloadFromFrame (url) {
-    let ifram = document.getElementById('helperdownloadiframe')
-    ifram.setAttribute('src', url)
+  downloadFromBsr (fn,url) {
+    let a = document.createElement('a');
+    a.href = url
+    a.download = fn
+    a.click()
   }
 
   calculateMD5 (file) {

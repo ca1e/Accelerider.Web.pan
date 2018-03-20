@@ -2,8 +2,6 @@
 #disk
   transition
     router-view
-  div(style='padding:0;margin:0;display:block')
-    iframe#helperdownloadiframe(src='javascript:void(0)', style='display:none')
 </template>
 
 <script>

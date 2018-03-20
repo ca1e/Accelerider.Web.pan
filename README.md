@@ -1,4 +1,4 @@
-# Accelerider.Web.pan v2.3.7
+# Accelerider.Web.pan v2.4.7
 
 A SPA for zuoqi cloud
 
