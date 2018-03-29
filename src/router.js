@@ -1,14 +1,14 @@
 import NotFound from '@/views/404.vue'
-import Register from '@/views/Register'
 import Login from '@/views/Login'
 import Home from '@/views/Home'
-
 import Disk from '@/views/Disk'
 import DDisk from '@/views/disk/BDDisk'
-import DM4s from '@/views/disk/M4sDisk'
-import DOneDrive from '@/views/disk/OneDriveDisk'
 import Square from '@/views/Square'
 import About from '@/views/About'
+
+const Register = ()=>import('@/views/Register')
+const DM4s = ()=>import('@/views/disk/M4sDisk')
+const DOneDrive = ()=>import('@/views/disk/OneDriveDisk')
 
 const routers = {
   // mode:'history',

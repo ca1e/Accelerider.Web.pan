@@ -11,9 +11,9 @@ import {RestAPI, M4sAPI, SquareAPI, Aria2API, Utils} from './libs'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
-import UserInfo from '@/components/UserInfo'
-import BindingForm from '@/components/BindingForm'
-import DownloadDlg from '@/components/DownloadDlg'
+const UserInfo = ()=>import('@/components/UserInfo')
+const BindingForm = ()=>import('@/components/BindingForm')
+const DownloadDlg = ()=>import('@/components/DownloadDlg')
 
 Vue.component('user-info', UserInfo)
 Vue.component('bind-form', BindingForm)
