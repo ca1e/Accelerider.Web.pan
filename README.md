@@ -1,6 +1,6 @@
-# Accelerider.Web.pan v2.4.8
+# Accelerider.Web.pan v3.0.0
 
-A SPA for zuoqi cloud
+A PWA for zuoqi cloud
 
 ## Introduction
 A Vue.js WebUI for baidu without speed limit
@@ -14,16 +14,17 @@ now RELEASE version number management will follow [Semantic Versioning 2.0.0](ht
 
 ``` bash
 # install dependencies
-npm install
+1. global dependencies
+npm i -g @vue/cli
+npm i -g @vue/cli-service-global
+2. local dependencies
+npm i
 
 # serve with hot reload at localhost:3000
-npm run dev
-
-# eslint check
-npm run lint
+vue serve src/main.js
 
 # build for production with minification
-npm run build
+vue build src/main.js
 ```
 ## Acknowledgements
 

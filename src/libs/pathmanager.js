@@ -1,4 +1,4 @@
-import queryString from 'query-string'
+import qs from 'qs'
 
 class PathManager {
   constructor () {
@@ -7,7 +7,7 @@ class PathManager {
     c = c.split('?')[1]
     // 2
     // let c = window.location.search
-    c = queryString.parse(c)
+    c = qs.parse(c)
     this.query = c
     this.path = c.path || '/'
     this.page = c.page || 1

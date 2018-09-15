@@ -1,12 +1,11 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from './vuex'
 import 'normalize.css'
-import App from './App'
+import App from './App.vue'
 import Routers from './router.js'
 import {RestAPI, M4sAPI, SquareAPI, Aria2API, Utils} from './libs'
+import './registerServiceWorker'
 
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
@@ -19,15 +18,15 @@ Vue.component('user-info', UserInfo)
 Vue.component('bind-form', BindingForm)
 Vue.component('down-dialog', DownloadDlg)
 
+Vue.use(VueRouter)
+Vue.use(ElementUI, { size: 'small' })
+
 Vue.config.productionTip = false
 Vue.prototype.$restAPI = new RestAPI()
 Vue.prototype.$m4sAPI = new M4sAPI()
 Vue.prototype.$squareAPI = new SquareAPI()
 Vue.prototype.$Aria2API = new Aria2API()
 Vue.prototype.utils = new Utils()
-
-Vue.use(VueRouter)
-Vue.use(ElementUI, { size: 'small' })
 
 const router = new VueRouter(Routers)
 
@@ -43,10 +42,8 @@ router.beforeEach((to, from, next) => {
   next()
 })
 
-/* eslint-disable no-new */
 new Vue({
-  store,
-  el: '#app',
   router,
+  store,
   render: h => h(App)
-})
+}).$mount('#app')

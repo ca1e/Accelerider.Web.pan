@@ -4,7 +4,7 @@ import MD5 from './cryptos'
 
 class RestAPI extends baseAPI {
   constructor () {
-    super(process.env.REST_BASE_URL)
+    super(process.env.VUE_APP_REST_BASE_URL)
   }
   signup (username, password) {
     const url = '/signup'
@@ -67,7 +67,7 @@ class RestAPI extends baseAPI {
       data: qs.stringify({
         name: username,
         password: MD5(password).toString(),
-        clienttype: process.env.CLIENT_TYPE
+        clienttype: process.env.VUE_APP_CLIENT_TYPE
       })
     })
       .then(response => response.data)
