@@ -67,7 +67,8 @@ class RestAPI extends baseAPI {
       data: qs.stringify({
         name: username,
         password: MD5(password).toString(),
-        clienttype: process.env.VUE_APP_CLIENT_TYPE
+        clienttype: process.env.VUE_APP_CLIENT_TYPE,
+        ver: 45
       })
     })
       .then(response => response.data)
